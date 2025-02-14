@@ -17,7 +17,7 @@ jobs:
             source_dir: "./"
             destination_dir: "./"
         - uses: chetan/invalidate-cloudfront-action@v2
-          with:
+          env:
             DISTRIBUTION: ${{ secrets.DISTRIBUTION }}
             PATHS: "/index.html"
             AWS_REGION: "us-east-1"
