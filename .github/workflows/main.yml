@@ -4,7 +4,7 @@ on:
     push:
         branches: [ main ]
 jobs:
-    upload:
+    deploy:
         runs-on: ubuntu-latest
         environment: default
         steps:
@@ -16,3 +16,10 @@ jobs:
             aws_bucket: ${{ secrets.AWS_BUCKET }}
             source_dir: "./"
             destination_dir: "./"
+        - uses: chetan/invalidate-cloudfront-action@v2
+          with:
+            DISTRIBUTION: ${{ secrets.DISTRIBUTION }}
+            PATHS: "/index.html"
+            AWS_REGION: "us-east-1"
+            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
